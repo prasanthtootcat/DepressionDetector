@@ -1,0 +1,31 @@
+<html>
+<head>
+	<script type="text/javascript">
+		function compute(){
+			var userInput = document.getElementById("userInput").value;
+			var url = "http://localhost:8080/?text="+userInput;
+			const http = new XMLHttpRequest()
+			http.open("GET",url)
+			http.send()
+			http.onload = () => document.getElementById("outputBox").innerHTML = http.responseText
+		}
+	</script>
+</head>
+	<style>
+		*{
+			text-align: center;
+		}
+		p{
+			font-size: 50px;
+			font-style: italic;
+		}
+	</style>
+<body>
+	<h1>Depression Detector</h1>
+	<input type="text" id="userInput"/><br><br>
+	<button onclick="compute()">check depression!</button>
+	<br><br>
+	<p id="outputBox"></p>
+</body>
+</html>
+
