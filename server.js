@@ -22,4 +22,4 @@ http.createServer(function(request, response) {
 		});	
 	}
 	
-}).listen(process.env.PORT);
+}).listen(8080);
