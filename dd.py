@@ -8,7 +8,7 @@ from sklearn.externals import joblib
 
 df = pd.read_csv('train.csv', encoding='latin-1')
 df = df.drop(['ItemID'],axis=1)
-df = df[:10000]
+df = df[:5000]
 
 X=np.array(df['SentimentText'])
 y=np.array(df['Sentiment'])
