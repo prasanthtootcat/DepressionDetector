@@ -7,7 +7,7 @@ http.createServer(function(request, response) {
 	var q = url.parse(request.url, true);
 	var suicidalDataLoad = new Promise(function(resolve, reject) {
 		var s = []
-		fs.createReadStream('./dummy.txt')
+		fs.createReadStream('./suicidalWords.csv')
 		.pipe(csv())
 		.on('data',function(data){
 			s.push(data[0]);
@@ -31,7 +31,8 @@ http.createServer(function(request, response) {
 			for(var i=0; i<data.length; i++){
 				 if(data[i] == q.query.text){
 					response.writeHeader(200);
-        			response.write('suicidal');
+					response.write('Extreme depression');
+					console.log('Extreme Depression');
 					response.end();
 					return(1);
 				 }
@@ -42,8 +43,9 @@ http.createServer(function(request, response) {
 				const spawn = require("child_process").spawn;
 				const pythonProcess = spawn('python',["./webVersionDD.py",q.query.text]);
 				pythonProcess.stdout.on('data', (data) => {
-        			response.writeHeader(200);
-        			response.write(data);
+					console.log(data.toString());
+					response.writeHeader(200);
+					response.write(data);
 					response.end();
 				});	
 			}
