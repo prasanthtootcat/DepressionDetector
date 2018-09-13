@@ -8,7 +8,7 @@ from sklearn.externals import joblib
 
 df = pd.read_csv('train.csv', encoding='latin-1')
 df = df.drop(['ItemID'],axis=1)
-df = df[:5000]
+df = df[:10000]
 
 X=np.array(df['SentimentText'])
 y=np.array(df['Sentiment'])
@@ -17,8 +17,6 @@ cv = CountVectorizer(stop_words='english',strip_accents='ascii',preprocessor=lam
 X = cv.fit_transform(X)
 X = X.toarray()
 X = np.array(X)
-
-#print(cv.get_feature_names())
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 mnb = MultinomialNB()

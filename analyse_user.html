@@ -3,7 +3,7 @@
 	<script>
 		function compute(){
 			var userInput = document.getElementById("userInput").value;
-			var url = "http://localhost:8080/?text="+userInput;
+			var url = "http://localhost:8080/analyse/?username="+userInput;
 			const http = new XMLHttpRequest()
 			http.open("GET",url)
 			http.send()
@@ -14,9 +14,9 @@
 </head>
 <body>
 	<div class="container text-center col-7 pt-4">
-		<h1 class="p-5">Depression Detector</h1>
-		<input class="w-100 p-4" type="text" id="userInput"/><br><br>
-		<button class="btn btn-warning" onclick="compute()">check depression!</button>
+		<h1 class="p-5">De-Stress Analyser</h1>
+		<input class="w-100 p-2" type="text" id="userInput"/><br><br>
+		<button class="btn btn-warning" onclick="compute()">Analyse!</button>
 		<p class="mt-5 border" id="outputBox"></p>
 	</div>
 </body>

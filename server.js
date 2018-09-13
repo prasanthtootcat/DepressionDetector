@@ -1,55 +1,57 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-var csv = require('fast-csv');
 
 http.createServer(function(request, response) {
-	var q = url.parse(request.url, true);
-	var suicidalDataLoad = new Promise(function(resolve, reject) {
-		var s = []
-		fs.createReadStream('./suicidalWords.csv')
-		.pipe(csv())
-		.on('data',function(data){
-			s.push(data[0]);
-		})
-		.on('end',function(data){
-			resolve(s);
-		})
-	});
+	var currentURL = url.parse(request.url, true);
 
-	if(!q.query.text){
-		fs.readFile('./index.html', function(err, data) {
-			if (err) throw err;
-    		response.writeHead(200, {'Content-Type': 'text/html'});
-    		response.write(data);
-    		response.end();
-  		});
+	if(currentURL.pathname == '/analyse' || currentURL.pathname == '/analyse/'){
+		if(!currentURL.query.username){
+			fs.readFile('./analyse_user.html', function(err, data) {
+				if (err) throw err;
+				response.writeHead(200, {'Content-Type': 'text/html'});
+				response.write(data);
+				response.end();
+			  });
+		}
+		else{
+			const spawn = require("child_process").spawn;
+			const pythonProcess = spawn('python',["./tweets_fetch.py",currentURL.query.username]);
+			response.writeHeader(200);
+			pythonProcess.stdout.on('data', (data) => {
+				console.log(data.toString());
+				response.write(data);
+				response.end();
+			});
+		}
+	}
+	else if(currentURL.pathname == '/dd' || currentURL.pathname == '/dd/'){
+		if(!currentURL.query.text){
+			fs.readFile('./dd.html', function(err, data) {
+				if (err) throw err;
+				response.writeHead(200, {'Content-Type': 'text/html'});
+				response.write(data);
+				response.end();
+			  });
+		}
+		else{
+			const spawn = require("child_process").spawn;
+			const pythonProcess = spawn('python',["./webVersionDD.py",currentURL.query.text]);
+			pythonProcess.stdout.on('data', (data) => {
+				console.log(data.toString());
+				response.writeHeader(200);
+				response.write(data);
+				response.end();
+			});	
+		}
 	}
 	else{
-
-		suicidalDataLoad.then(function(data){
-			for(var i=0; i<data.length; i++){
-				 if(data[i] == q.query.text){
-					response.writeHeader(200);
-					response.write('Extreme depression');
-					console.log('Extreme Depression');
-					response.end();
-					return(1);
-				 }
-			}
-			return 0;
-		}).then(function(data){
-			if(data == 0){
-				const spawn = require("child_process").spawn;
-				const pythonProcess = spawn('python',["./webVersionDD.py",q.query.text]);
-				pythonProcess.stdout.on('data', (data) => {
-					console.log(data.toString());
-					response.writeHeader(200);
-					response.write(data);
-					response.end();
-				});	
-			}
-		})
+		fs.readFile('./homepage.html', function(err, data) {
+			if (err) throw err;
+			response.writeHead(200, {'Content-Type': 'text/html'});
+			response.write(data);
+			response.end();
+		  });
 	}
 	
 }).listen(8080);
