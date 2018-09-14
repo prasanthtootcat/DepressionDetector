@@ -19,10 +19,10 @@ http.createServer(function(request, response) {
 			const pythonProcess = spawn('python',["./tweets_fetch.py",currentURL.query.username]);
 			response.writeHeader(200);
 			pythonProcess.stdout.on('data', (data) => {
-				console.log(data.toString());
 				response.write(data);
 				response.end();
 			});
+			
 		}
 	}
 	else if(currentURL.pathname == '/dd' || currentURL.pathname == '/dd/'){

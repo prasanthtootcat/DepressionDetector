@@ -20,8 +20,8 @@ def get_tweets(username):
         tweets_for_csv = [tweet.text for tweet in tweets]  
         for j in tweets_for_csv:
             prediction = dd.depresssion_detect(j)
-            print('\n'+j)
-            print('\n'+prediction)
+            print('<br>'+j)
+            print('<br><b>'+prediction+'</b><br>')
             if prediction == 'Suicidal':
                 suicidal = True
             elif prediction == 'Possibly suicidal':
@@ -31,17 +31,16 @@ def get_tweets(username):
             else:
                 not_depressed += 0.75
 
-        print('\n\nSUMMARY:\n')
+        print('<br><br><b><i>SUMMARY:</i></b><br>')
         if suicidal == True:
-            print('The person is having suicidal thoughts!\n')
+            print('<i>The person is having suicidal thoughts!</i><br>')
         elif possibly_suicidal + depressed < not_depressed:
-            print('The person is not depressed\n')
+            print('<i>The person is not depressed</i><br>')
         elif possibly_suicidal > depressed:
-            print('The person could be having suicidal thoughts!\n')
+            print('<i>The person could be having suicidal thoughts</i><br>')
         else:
-            print('The person is depressed!\n')
+            print('<i>The person is depressed!</i><br>')
 
 if __name__ == '__main__':
     username = sys.argv[1]
-    print('\n\n\n')
     get_tweets(username)  

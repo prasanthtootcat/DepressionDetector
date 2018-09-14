@@ -13,11 +13,12 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-	<div class="container text-center col-7 pt-4">
-		<h1 class="p-5">De-Stress Analyser</h1>
-		<input class="w-100 p-2" type="text" id="userInput"/><br><br>
-		<button class="btn btn-warning" onclick="compute()">Analyse!</button>
-		<p class="mt-5 border" id="outputBox"></p>
+	<div class="container text-center col-7 pt-4 mt-5 bg-light rounded">
+		<h2 class="p-5">De-Stress User Analyser</h2>
+		<input class="w-100 p-2" type="text" id="userInput" placeholder="Twitter username"/><br><br>
+		<button class="btn btn-primary" onclick="compute()">Analyse!</button>
+		<p class="mt-5" id="outputBox"></p>
+		<br><br>
 	</div>
 </body>
 </html>
