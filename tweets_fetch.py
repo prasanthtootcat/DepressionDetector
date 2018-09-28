@@ -1,12 +1,7 @@
 import tweepy, sys
 import ddFunction as dd #importing the depression detector
-'''
-Insert your twitter credentials here
-consumer_key =  
-consumer_secret = 
-access_key = 
-access_secret = 
-'''
+
+'''Please add consumer_key, consumer_secret, access_key, access_secret from your twitter app here'''
   
 def get_tweets(username):
 
